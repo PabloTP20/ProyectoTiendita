@@ -4,9 +4,13 @@ import Controller.InventarioController;
 import Controller.VentasController;
 import Model.InventarioModel;
 import Model.VentasModel;
-
+import Model.EmpleadoModel;
+import View.EmpleadoView;
+import Controller.EmpleadoController;
 import javax.swing.*;
 import java.awt.*;
+
+
 
 public class MainMenu extends JFrame {
     public MainMenu() {

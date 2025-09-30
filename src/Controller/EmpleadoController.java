@@ -1,28 +1,24 @@
 package Controller;
 
-import Model.EmpleadoModel;
 import Model.Empleado;
+import Model.EmpleadoModel;
 import View.EmpleadoView;
-
 import javax.swing.*;
 
 public class EmpleadoController {
-    private Empleado empleado;
-    private EmpleadoView view;
     private EmpleadoModel model;
+    private EmpleadoView view;
 
-    public EmpleadoController(Empleado model, EmpleadoView view) {
-        this.empleado = empleado;
+    public EmpleadoController(EmpleadoModel model, EmpleadoView view) {
+        this.model = model;
         this.view = view;
-
 
         // Eventos
         view.getBtnAgregar().addActionListener(e -> agregarEmpleado());
         view.getBtnDespedir().addActionListener(e -> despedirEmpleado());
     }
 
-    public void agregarEmpleado() {
-
+    private void agregarEmpleado() {
         String nombre = JOptionPane.showInputDialog(view, "Ingrese el nombre del empleado:");
         if (nombre == null || nombre.isEmpty()) return;
 
@@ -34,18 +30,12 @@ public class EmpleadoController {
         try {
             edad = Integer.parseInt(edadStr);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(view, "Edad inválida.");
+            JOptionPane.showMessageDialog(view, "Edad:");
             return;
         }
 
-        String TelefonoStr = JOptionPane.showInputDialog(view, "Ingrese el telefono:");
-        int telefono;
-        try {
-            telefono = Integer.parseInt(edadStr);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(view, "Telefono inválida.");
-            return;
-        }
+        String telefono = JOptionPane.showInputDialog(view, "Ingrese el número de teléfono:");
+        if (telefono == null || telefono.isEmpty()) return;
 
         Empleado emp = new Empleado(nombre, apellido, edad, telefono);
         model.agregarEmpleado(emp);

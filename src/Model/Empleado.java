@@ -4,9 +4,9 @@ public class Empleado {
     private String nombre;
     private String apellido;
     private int edad;
-    private int telefono;
+    private String telefono;
 
-    public Empleado(String nombre, String apellido, int edad, int telefono) {
+    public Empleado(String nombre, String apellido, int edad, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -17,7 +17,6 @@ public class Empleado {
     public Empleado() {
 
     }
-
 
     public String getNombre() {
         return nombre;
@@ -31,7 +30,7 @@ public class Empleado {
         return edad;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 

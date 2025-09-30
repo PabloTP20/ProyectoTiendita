@@ -1,9 +1,7 @@
 package View;
 
-import Controller.EmpleadoController;
 import Model.Empleado;
 import Model.EmpleadoModel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -30,7 +28,7 @@ public class EmpleadoView extends JFrame {
         add(panelBotones, BorderLayout.SOUTH);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(500, 300);
         setLocationRelativeTo(null);
     }
 

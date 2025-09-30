@@ -16,12 +16,13 @@ public class Main {
             //new InventarioController();
             /*InventarioModel model = new InventarioModel();
             new VentasController(model);*/
-            Empleado model = new Empleado();
+            EmpleadoModel model = new EmpleadoModel();
             EmpleadoView view = new EmpleadoView();
             new EmpleadoController(model, view);
+
             view.mostrar();
+
         });
 
     }
 }
-
