@@ -9,20 +9,16 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
-public class VentasView extends JFrame {
+public class VentasView {
     private VentasController controller;
     private JComboBox<String> comboProductos;
     private JTextField txtCantidad;
     private JTable tablaVentas;
     private DefaultTableModel modeloTabla;
+    private JPanel mainPanel;
 
     public VentasView(VentasController controller, List<Producto> productos) {
-        this.controller = controller;
-        setTitle("Gestión de Ventas");
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        mainPanel = new JPanel(new BorderLayout());
         JPanel panel = new JPanel(new BorderLayout());
 
         // 🔹 Panel superior
@@ -53,7 +49,7 @@ public class VentasView extends JFrame {
         panel.add(panelTop, BorderLayout.NORTH);
         panel.add(new JScrollPane(tablaVentas), BorderLayout.CENTER);
 
-        add(panel);
+        mainPanel.add(panel);
 
         // 🔹 Eventos
         btnRegistrar.addActionListener(e -> {
@@ -87,8 +83,9 @@ public class VentasView extends JFrame {
     }
 
     public void mostrarMensaje(String titulo, String mensaje, int tipo) {
-        JOptionPane.showMessageDialog(this, mensaje, titulo, tipo);
+        JOptionPane.showMessageDialog(mainPanel, mensaje, titulo, tipo);
     }
+    public JPanel getMainPanel() { return mainPanel; }
 }
 
 

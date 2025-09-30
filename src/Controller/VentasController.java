@@ -2,6 +2,7 @@ package Controller;
 
 import Model.InventarioModel;
 import Model.VentasModel;
+import View.InventarioView;
 import View.VentasView;
 import Model.Venta;
 
@@ -15,7 +16,6 @@ public class VentasController {
     public VentasController(InventarioModel inventario) {
         this.model = new VentasModel(inventario);
         this.view = new VentasView(this, inventario.obtenerTodosProductos());
-        this.view.setVisible(true);
     }
 
     public void registrarVenta(String producto, int cantidad) {
@@ -39,6 +39,9 @@ public class VentasController {
     private void actualizarTabla() {
         List<Venta> ventas = model.obtenerVentas();
         view.actualizarVentas(ventas);
+    }
+    public VentasView getView() {
+        return view;
     }
 }
 

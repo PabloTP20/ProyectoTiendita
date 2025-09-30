@@ -16,12 +16,13 @@ public class InventarioController {
     public InventarioController() {
         this.model = new InventarioModel();
         this.view = new InventarioView(this);
+        this.model = new InventarioModel();
+        this.view = new InventarioView(this);
 
         // Configurar todos los eventos aquí (ActionListeners, DocumentListener, MouseListener)
         configurarEventos();
 
         actualizarTabla();  // Cargar tabla inicial
-        view.setVisible(true);
     }
     private void configurarEventos() {
         // ActionListener para botón agregar
@@ -123,5 +124,8 @@ public class InventarioController {
     private void actualizarTabla() {
         List<Producto> productos = model.obtenerTodosProductos();
         view.actualizarTabla(productos);
+    }
+    public InventarioView getView() {
+        return view;
     }
 }

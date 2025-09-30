@@ -2,6 +2,7 @@ package Main;
 
 import Controller.EmpleadoController;
 import Controller.InventarioController;
+import View.MenuMain;
 import Controller.VentasController;
 import Model.Empleado;
 import Model.EmpleadoModel;
@@ -13,15 +14,9 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(()-> {
-            //new InventarioController();
-            /*InventarioModel model = new InventarioModel();
-            new VentasController(model);*/
-            EmpleadoModel model = new EmpleadoModel();
-            EmpleadoView view = new EmpleadoView();
-            new EmpleadoController(model, view);
 
-            view.mostrar();
-
+            MenuMain menuView = new MenuMain();
+            menuView.setVisible(true);
         });
 
     }

@@ -5,15 +5,15 @@ import Model.EmpleadoModel;
 import javax.swing.*;
 import java.awt.*;
 
-public class EmpleadoView extends JFrame {
+public class EmpleadoView {
     private DefaultListModel<String> modeloLista;
     private JList<String> listaEmpleados;
     private JButton btnAgregar;
     private JButton btnDespedir;
+    private JPanel mainPanel;
 
     public EmpleadoView() {
-        super("Gestión de Empleados");
-
+        mainPanel = new JPanel(new BorderLayout());
         modeloLista = new DefaultListModel<>();
         listaEmpleados = new JList<>(modeloLista);
         btnAgregar = new JButton("Agregar empleado");
@@ -23,21 +23,15 @@ public class EmpleadoView extends JFrame {
         panelBotones.add(btnAgregar);
         panelBotones.add(btnDespedir);
 
-        setLayout(new BorderLayout());
-        add(new JScrollPane(listaEmpleados), BorderLayout.CENTER);
-        add(panelBotones, BorderLayout.SOUTH);
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(new JScrollPane(listaEmpleados), BorderLayout.CENTER);
+        mainPanel.add(panelBotones, BorderLayout.SOUTH);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(500, 300);
-        setLocationRelativeTo(null);
-    }
-
-    public void mostrar() {
-        setVisible(true);
     }
 
     public JButton getBtnAgregar() { return btnAgregar; }
     public JButton getBtnDespedir() { return btnDespedir; }
     public JList<String> getListaEmpleados() { return listaEmpleados; }
     public DefaultListModel<String> getModeloLista() { return modeloLista; }
+    public JPanel getMainPanel() { return mainPanel; }
 }

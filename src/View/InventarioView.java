@@ -9,7 +9,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-public class InventarioView extends JFrame {
+public class InventarioView{
+
     private InventarioController controller;
     private JTextField txtBusqueda;
     private JTable tablaProductos;
@@ -19,15 +20,13 @@ public class InventarioView extends JFrame {
     private JButton btnLimpiar;
     private JPopupMenu menuContextual;
     private JMenuItem itemEliminar;
+    private JPanel mainPanel;
     public InventarioView(InventarioController controller) {
         this.controller = controller;
-        setTitle("Gestión de Inventario de Tienda");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
-        setLocationRelativeTo(null);  // Centrar ventana
         crearInterfazPrincipal();
     }
     private void crearInterfazPrincipal() {
+        mainPanel = new JPanel(new BorderLayout());
         // Panel para botones (visibles, sin listeners)
         JPanel panelOpciones = new JPanel();
         btnAgregar = new JButton("Agregar/Eliminar Producto Nuevo");
@@ -38,7 +37,7 @@ public class InventarioView extends JFrame {
         btnLlenar.setForeground(Color.WHITE);
         panelOpciones.add(btnAgregar);
         panelOpciones.add(btnLlenar);
-        add(panelOpciones, BorderLayout.NORTH);
+        mainPanel.add(panelOpciones, BorderLayout.NORTH);
         // Panel para buscador (visibles, sin listeners)
         JPanel panelBusqueda = new JPanel();
         panelBusqueda.add(new JLabel("Buscar por nombre:"));
@@ -46,7 +45,7 @@ public class InventarioView extends JFrame {
         panelBusqueda.add(txtBusqueda);
         btnLimpiar = new JButton("Limpiar");
         panelBusqueda.add(btnLimpiar);
-        add(panelBusqueda, BorderLayout.CENTER);
+        mainPanel.add(panelBusqueda, BorderLayout.CENTER);
         // Tabla (visible con scroll)
         String[] columnas = {"ID", "Nombre", "Cantidad", "Precio ($)"};
         modeloTabla = new DefaultTableModel(columnas, 0);
@@ -58,7 +57,7 @@ public class InventarioView extends JFrame {
         tablaProductos.getColumnModel().getColumn(2).setPreferredWidth(100);
         tablaProductos.getColumnModel().getColumn(3).setPreferredWidth(100);
         JScrollPane scrollPane = new JScrollPane(tablaProductos);
-        add(scrollPane, BorderLayout.SOUTH);
+        mainPanel.add(scrollPane, BorderLayout.SOUTH);
         // Menú contextual para eliminar (click derecho - visible, sin listeners)
         menuContextual = new JPopupMenu();
         itemEliminar = new JMenuItem("Eliminar");
@@ -73,10 +72,11 @@ public class InventarioView extends JFrame {
     public JPopupMenu getMenuContextual() { return menuContextual; }
     public JMenuItem getItemEliminar() { return itemEliminar; }
     public DefaultTableModel getModeloTabla() { return modeloTabla; }
+    public JPanel getMainPanel() { return mainPanel; }
 
     // Metodo para mostrar diálogo de agregar/eliminar
     public void mostrarDialogoAgregarEliminar() {
-        JDialog dialog = new JDialog(this, "Agregar/Eliminar Producto", true);
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(mainPanel), "Agregar/Eliminar Producto", true);
         dialog.setSize(450, 250);
         dialog.setLocationRelativeTo(null);
         dialog.setLayout(new GridLayout(6, 2, 5, 5));
@@ -137,7 +137,7 @@ public class InventarioView extends JFrame {
     // Metodo para mostrar diálogo de actualizar cantidad (UI visible, listener interno llama a Controller)
     public void mostrarDialogoActualizarCantidad(Producto producto) {
         if (producto == null) return;
-        JDialog dialog = new JDialog(this, "Actualizar Inventario - " + producto.getNombre(), true);
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(mainPanel), "Actualizar Inventario - " + producto.getNombre(), true);
         dialog.setSize(250, 150);
         dialog.setLayout(new GridLayout(4, 1, 5, 5));
         JLabel lblActual = new JLabel("Cantidad actual: " + producto.getCantidad());
@@ -167,16 +167,7 @@ public class InventarioView extends JFrame {
         }
     }
     public void mostrarMensaje(String titulo, String mensaje, int tipo) {
-        switch (tipo) {
-            case JOptionPane.ERROR_MESSAGE:
-                JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
-                break;
-            case JOptionPane.INFORMATION_MESSAGE:
-                JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
-                break;
-            default:
-                JOptionPane.showMessageDialog(this, mensaje, titulo, JOptionPane.WARNING_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(mainPanel, mensaje, titulo, tipo);
     }
     public void limpiarCampoBusqueda() {
         txtBusqueda.setText("");
@@ -186,6 +177,6 @@ public class InventarioView extends JFrame {
     }
     // Metodo para mostrar confirmación (diálogo visible, retorna boolean)
     public boolean mostrarConfirmacion(String mensaje, String titulo) {
-        return JOptionPane.showConfirmDialog(this, mensaje, titulo, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+        return JOptionPane.showConfirmDialog(mainPanel, mensaje, titulo, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 }
